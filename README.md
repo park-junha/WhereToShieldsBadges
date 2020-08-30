@@ -3,6 +3,13 @@
 
 This repository contains source code for custom endpoints used by the [shields.io](https://shields.io/) badges on the [WhereTo](https://github.com/park-junha/WhereTo) README.
 
+The following badges use the custom endpoints:
+
+- [![Chrome](https://img.shields.io/endpoint?url=https%3A%2F%2Fo3x72k5hu9.execute-api.us-west-1.amazonaws.com%2Fapi%2Fchrome)](https://o3x72k5hu9.execute-api.us-west-1.amazonaws.com/api/chrome) - https://o3x72k5hu9.execute-api.us-west-1.amazonaws.com/api/chrome
+- [![Firefox](https://img.shields.io/endpoint?url=https%3A%2F%2Fo3x72k5hu9.execute-api.us-west-1.amazonaws.com%2Fapi%2Ffirefox)](https://o3x72k5hu9.execute-api.us-west-1.amazonaws.com/api/firefox) - https://o3x72k5hu9.execute-api.us-west-1.amazonaws.com/api/firefox
+- [![Safari](https://img.shields.io/endpoint?url=https%3A%2F%2Fo3x72k5hu9.execute-api.us-west-1.amazonaws.com%2Fapi%2Fsafari)](https://o3x72k5hu9.execute-api.us-west-1.amazonaws.com/api/safari) - https://o3x72k5hu9.execute-api.us-west-1.amazonaws.com/api/safari
+- [![Edge](https://img.shields.io/endpoint?url=https%3A%2F%2Fo3x72k5hu9.execute-api.us-west-1.amazonaws.com%2Fapi%2Fedge)](https://o3x72k5hu9.execute-api.us-west-1.amazonaws.com/api/edge) - https://o3x72k5hu9.execute-api.us-west-1.amazonaws.com/api/edge
+
 ## Running the App
 
 This app was developed with Python 3.8.5.
@@ -31,11 +38,34 @@ cd /path/to/WhereToShieldsBadges
 pip3 install -r requirements.txt
 ```
 
-## Badges
+## Deploy to AWS Lambda with Zappa
 
-The following badges use the custom endpoints:
+You can deploy this app to AWS Lambda with [Zappa](https://github.com/Miserlou/Zappa) using the `zappa_settings.json` file.
 
-- [![Chrome](https://img.shields.io/endpoint?url=https%3A%2F%2Fo3x72k5hu9.execute-api.us-west-1.amazonaws.com%2Fapi%2Fchrome)](https://o3x72k5hu9.execute-api.us-west-1.amazonaws.com/api/chrome) - https://o3x72k5hu9.execute-api.us-west-1.amazonaws.com/api/chrome
-- [![Firefox](https://img.shields.io/endpoint?url=https%3A%2F%2Fo3x72k5hu9.execute-api.us-west-1.amazonaws.com%2Fapi%2Ffirefox)](https://o3x72k5hu9.execute-api.us-west-1.amazonaws.com/api/firefox) - https://o3x72k5hu9.execute-api.us-west-1.amazonaws.com/api/firefox
-- [![Safari](https://img.shields.io/endpoint?url=https%3A%2F%2Fo3x72k5hu9.execute-api.us-west-1.amazonaws.com%2Fapi%2Fsafari)](https://o3x72k5hu9.execute-api.us-west-1.amazonaws.com/api/safari) - https://o3x72k5hu9.execute-api.us-west-1.amazonaws.com/api/safari
-- [![Edge](https://img.shields.io/endpoint?url=https%3A%2F%2Fo3x72k5hu9.execute-api.us-west-1.amazonaws.com%2Fapi%2Fedge)](https://o3x72k5hu9.execute-api.us-west-1.amazonaws.com/api/edge) - https://o3x72k5hu9.execute-api.us-west-1.amazonaws.com/api/edge
+To configure your AWS credentials on your local environment, follow these steps:
+
+```
+pip3 install awscli
+aws configure
+```
+
+Then, you can deploy to AWS Lambda by running these commands:
+
+```
+# See above section to create a virtual environment
+source ~/.virtualenv/WhereToShieldsBadges/bin/activate
+
+# One-time command to install Zappa
+pip3 install zappa
+
+# Deploy the app!
+zappa deploy api
+
+# Or update an existing deployment
+zappa update api
+```
+
+Notes:
+- Zappa requires a virtual environment using the same Python runtime as specified in `zappa_settings.json`.
+  - For example, if `zappa_settings.json` specifies a `runtime` value of `python3.8`, your virtual environment should also be on Python 3.8.
+- You do not need to install `awscli` on your virtual environment, as it is neither required by the app nor by Zappa.
