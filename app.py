@@ -25,12 +25,12 @@ def initResponse(label, message = 'available', color = COLOR_OK):
 class Chrome(Resource):
   def get(self):
     html = requests.get(URL_CHROME)
-    if html.status_code is not 200:
+    if html.status_code != 200:
       res = initResponse('chrome', 'unavailable', COLOR_BAD)
       return res, 200
     soup = BeautifulSoup(html.text, 'html.parser')
     elements = soup.select('.C-b-p-D-J .C-b-p-D-Xe.h-C-b-p-D-md')
-    if len(elements) is not 1:
+    if len(elements) != 1:
       res = initResponse('chrome', 'unknown ver', COLOR_WARN)
       return res, 200
     version = elements[0].decode_contents()
@@ -40,12 +40,12 @@ class Chrome(Resource):
 class Firefox(Resource):
   def get(self):
     html = requests.get(URL_FIREFOX)
-    if html.status_code is not 200:
+    if html.status_code != 200:
       res = initResponse('firefox', 'unavailable', COLOR_BAD)
       return res, 200
     soup = BeautifulSoup(html.text, 'html.parser')
     elements = soup.select('.DefinitionList .Definition-dd.AddonMoreInfo-version')
-    if len(elements) is not 1:
+    if len(elements) != 1:
       res = initResponse('firefox', 'unknown ver', COLOR_WARN)
       return res, 200
     version = elements[0].decode_contents()

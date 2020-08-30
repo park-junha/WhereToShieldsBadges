@@ -5,7 +5,7 @@ This repository contains source code for custom endpoints used by the [shields.i
 
 ## Running the App
 
-This app was developed with Python 3.7.6.
+This app was developed with Python 3.8.5.
 
 ```
 # Install dependencies
